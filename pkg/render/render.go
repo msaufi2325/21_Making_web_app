@@ -7,8 +7,8 @@ import (
 	"text/template"
 )
 
-// RenderTemplate render tamplates using html/template
-func RenderTemplate(w http.ResponseWriter, tmpl string) {
+// RenderTemplate render templates using html/template
+func RenderTemplateTest(w http.ResponseWriter, tmpl string) {
 	parsedTemplate, _ := template.ParseFiles("./templates/"+tmpl, "./templates/base.layout.gohtml")
 	err := parsedTemplate.Execute(w, nil)
 	if err != nil {
@@ -19,7 +19,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 
 var tc = make(map[string]*template.Template)
 
-func RenderTemplateTest(w http.ResponseWriter, t string) {
+func RenderTemplate(w http.ResponseWriter, t string) {
 	var tmpl *template.Template
 
 	// check if template is already in cache
