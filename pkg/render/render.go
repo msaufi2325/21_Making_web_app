@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 
 	"github.com/msaufi2325/21_Making_web_app/pkg/config"
+	"github.com/msaufi2325/21_Making_web_app/pkg/models"
 )
 
 var app *config.AppConfig
@@ -19,7 +20,7 @@ func NewTemplates(a *config.AppConfig) {
 }
 
 // RenderTemplate render templates using html/template
-func RenderTemplate(w http.ResponseWriter, tmpl string) {
+func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
 	var tc map[string]*template.Template
 
 	if app.UseCache {
@@ -39,7 +40,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 
 	buf := new(bytes.Buffer)
 
-	err := t.Execute(buf, nil)
+	err := t.Execute(buf, td)
 	if err != nil {
 		fmt.Println("error in t.Execute")
 		log.Println(err)
