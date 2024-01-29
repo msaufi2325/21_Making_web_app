@@ -3,8 +3,15 @@ package handlers
 import (
 	"net/http"
 
+	"github.com/msaufi2325/21_Making_web_app/pkg/config"
 	"github.com/msaufi2325/21_Making_web_app/pkg/render"
 )
+
+var Repo *Repository
+
+type Repository struct {
+	App *config.AppConfig
+}
 
 // Home is the home page handler
 func Home(w http.ResponseWriter, r *http.Request) {

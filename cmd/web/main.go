@@ -16,6 +16,8 @@ const portNumber = ":8080"
 func main() {
 	var app config.AppConfig
 
+	render.NewTemplates(&app)
+
 	tc, err := render.CreateTemplateCache()
 	if err != nil {
 		log.Fatal("cannot create template cache")

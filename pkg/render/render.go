@@ -7,18 +7,22 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+
+	"github.com/msaufi2325/21_Making_web_app/pkg/config"
 )
+
+var app *config.AppConfig
+
+// NewTemplates set the config for the template package
+func NewTemplates(a *config.AppConfig) {
+	app = a
+}
 
 // RenderTemplate render templates using html/template
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
 	// get the template cache from the app config
 
-	// create a template cache
-	tc, err := CreateTemplateCache()
-	if err != nil {
-		fmt.Println("error in createTemplateCache")
-		log.Fatal(err)
-	}
+	tc := app.TemplateCache
 
 	// get the requested template from cache
 	t, ok := tc[tmpl]
@@ -26,12 +30,11 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 		fmt.Println("error in tc[tmpl]")
 		fmt.Println(tmpl)
 		fmt.Println(tc)
-		log.Fatal(err)
 	}
 
 	buf := new(bytes.Buffer)
 
-	err = t.Execute(buf, nil)
+	err := t.Execute(buf, nil)
 	if err != nil {
 		fmt.Println("error in t.Execute")
 		log.Println(err)
